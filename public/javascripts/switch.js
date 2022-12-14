@@ -137,4 +137,6 @@ function SaveData(){
 
     console.log(ContentsData);
     SaveID = [];
+
+    window.location.href = '/feed';
 }

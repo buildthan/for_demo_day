@@ -6,7 +6,7 @@ const router = express.Router();
 
 const multer = require("multer");
 
-var upload = multer({dest: 'uploads/'});
+var upload = multer({dest: 'public/uploads/'});
 
 // get
 
@@ -129,6 +129,51 @@ router.get("/", function (req, res) {
       </nav>
     </header>
 
+    <!-- 검색창 -->
+    <div
+      class="modal fade"
+      id="Modal_search"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="ModalLabelSearch"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div
+              class="modal-title"
+              id="ModalLabelSearch"
+              style="margin: 0 auto"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="사용자 검색"
+                  aria-label="Search"
+                  aria-describedby="button-addon2"
+                  id="input_user"
+                  style="width: 350px"
+                />
+                <button
+                  class="btn btn-outline-success"
+                  type="submit"
+                  id="btn_search"
+                  onclick="searchF()"
+                >
+                  검색
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div id="div_users"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 그 외 게시글 표시될 곳-->
     <main style="margin-left: 70px; padding-top: 80px">
               <div class = "container justify-content-center mt-3">
@@ -184,16 +229,8 @@ router.get("/", function (req, res) {
       
                   </div>
       
-                <div class = "container  justify-content-center mt-3">
-                  <div class = "row">
-                      <form class="d-flex" role="search">
-                          <input class="form-control" type="search" placeholder="게시글 검색" aria-label="Search">
-                          <button class="btn btn-outline-success" type="submit">
-                            Search
-                          </button>
-                        </form>
-                  </div>
-                </div>
+                  <div class='m-2'></div>
+                  <hr>
       
       
                 <!--아래에 적힌 내용은 모두 예시로 실제 js에 적용시 함수화 한다음 데이터를 받아와서 적용할 예정임-->
@@ -267,6 +304,15 @@ router.get("/", function (req, res) {
                               <label for="user_intro_1"> </label>
                             </div>
                         </div>
+
+                        </br>
+
+                        <div class = "container  justify-content-center">
+                        <div class = "row">
+                        <button type="submit" class="btn btn-dark">저장</button>
+                        </form>
+                        </div>
+                        </div>
       
                         <div class = "container  justify-content-center">
                         <div class = "row">
@@ -274,12 +320,12 @@ router.get("/", function (req, res) {
                               게시글
                           </div>
       
-                          <div class = "col-10 mt-2"> 
-                              <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
-                          </div>
-
-                          <button type="submit" class="btn btn-dark">저장</button>
+                          <div class = "col-10 mt-2">
+                          <form action="./switch" method="post">
+                              <button type="submit" class="btn btn-dark" >게시글 편집</button>
+                              <input type="hidden" id="username1_hidden" name="username_hidden" value="1">
                           </form>
+                          </div>
       
                         </div>
                         </div>              
@@ -325,6 +371,16 @@ router.get("/", function (req, res) {
                           <label for="user_intro_2"> </label>
                         </div>
                     </div>
+
+
+                    </br>
+
+                    <div class = "container  justify-content-center">
+                    <div class = "row">
+                    <button type="submit" class="btn btn-dark">저장</button>
+                    </form>
+                    </div>
+                    </div>
       
                     <div class = "container  justify-content-center">
                     <div class = "row">
@@ -333,11 +389,11 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/s" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
-                      </div>
-
-                      <button type="submit" class="btn btn-dark">저장</button>
+                      <form action="./switch" method="post">
+                      <button type="submit" class="btn btn-dark" >게시글 편집</button>
+                      <input type="hidden" id="username2_hidden" name="username_hidden" value="2">
                       </form>
+                      </div>
       
                     </div>
                     </div>              
@@ -383,6 +439,15 @@ router.get("/", function (req, res) {
                           <label for="user_intro_3"> </label>
                         </div>
                     </div>
+
+                    </br>
+
+                    <div class = "container  justify-content-center">
+                    <div class = "row">
+                    <button type="submit" class="btn btn-dark">저장</button>
+                    </form>
+                    </div>
+                    </div>
       
                     <div class = "container  justify-content-center">
                     <div class = "row">
@@ -391,11 +456,11 @@ router.get("/", function (req, res) {
                       </div>
       
                       <div class = "col-10 mt-2"> 
-                          <a href="/switch" class="btn btn-dark" tabindex="-1" role="button">게시글 편집</a>
+                      <form action="./switch" method="post">
+                      <button type="submit" class="btn btn-dark" >게시글 편집</button>
+                      <input type="hidden" id="username3_hidden" name="username_hidden" value="3">
+                      </form>
                       </div>
-
-                      
-              <button type="submit" class="btn btn-dark">저장</button>
 
                     </div>
                     </div>              
@@ -467,7 +532,6 @@ router.get("/", function (req, res) {
 
     <!-- 게시글 생성 버튼 클릭 -->
     <form action="./feed/write" method="post" enctype="multipart/form-data" >
-
     <div class="modal fade" id="modal_new_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -486,7 +550,6 @@ router.get("/", function (req, res) {
                 required
               />
             </div>
-
             <h5>게시글 내용</h5>
             <div class="input-group">
               <textarea
@@ -498,9 +561,7 @@ router.get("/", function (req, res) {
               ></textarea>
             </div>
             <br/>
-
               <input type="file"  class="form-control" id="image" name ="image" accept=".png, .jpeg, .jpg" required>
-
               <br />
               
           <div class="modal-footer">
@@ -518,48 +579,6 @@ router.get("/", function (req, res) {
     </div>
 </form>
     
-    <!-- 검색창 -->
-      <div
-        class="modal fade"
-        id="Modal_search"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="ModalLabelSearch"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div
-                class="modal-title"
-                id="ModalLabelSearch"
-                style="margin: 0 auto"
-              >
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="사용자 검색"
-                  aria-label="Search"
-                  style="width: 450px"
-                />
-              </div>
-            </div>
-            <div class="modal-body">
-              <h5>게시글 제목</h5>
-              <p>게시글 내용 ...</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </body>
 </html>
         `;
@@ -569,7 +588,6 @@ router.get("/", function (req, res) {
     res.redirect("/"); //세션에 로그인 아이디가 존재하지 않는 경우 로그인 페이지로 보낸다.
   }
 
-  
 });
 
 

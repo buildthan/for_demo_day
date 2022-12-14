@@ -3,22 +3,21 @@ const mysql = require("../../mysql/index.js");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const users = await mysql.query("userList");
+  const users = await mysql.query("userList");
 
-    res.send(users);
+  res.send(users);
 });
 
-router.post('/insert', async(req, res) => {
-    const users = await  mysql.query("userInsert", req.body);
+router.post("/insert", async (req, res) => {
+  const users = await mysql.query("userInsert", req.body);
 
-    res.send(JSON.stringify(users));
+  res.send(JSON.stringify(users));
 });
 
-router.post('/checkDB', async(req, res) => {
-    
-    const users = await  mysql.query("userCheckDB", req.body.id);
-    
-    res.send(JSON.stringify(users));
+router.post("/checkDB", async (req, res) => {
+  const users = await mysql.query("userCheckDB", req.body.id);
+
+  res.send(JSON.stringify(users));
 });
 
 router.post('/update_username', async(req, res) => {
@@ -27,7 +26,6 @@ router.post('/update_username', async(req, res) => {
     
     res.send(JSON.stringify(users));
 });
-
 
 
 module.exports = router;

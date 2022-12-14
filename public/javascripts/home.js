@@ -25,6 +25,7 @@ function get(data, num){
             }),
         }).then((response) => response.json())
         .then(data => {
+            console.log(data);
             SaveContents(data);
             resolve(data);
         });
@@ -66,7 +67,21 @@ async function setFollowing(data){
                                 <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">${contents[time[i]][j].username}</h5>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body">`;
+
+
+                                if(contents[time[i]][j].image)
+                                {
+                                  output+=`
+                                  <div class="d-flex justify-content-center">
+                                  <img src="../uploads/${contents[time[i]][j].image}" alt="#" width="400">
+                                  </div>
+                                  `;
+                                }
+                        
+
+
+                  output+=      `
                                 <h5>${contents[time[i]][j].title}</h5>
                                 <p>${contents[time[i]][j].contents}</p>
                                 </div>
@@ -84,33 +99,33 @@ async function setFollowing(data){
 }
 
 function sortFunction(a, b){
-    let yearA = a.getFullYear();
-    let yearB = b.getFullYear();
+    let yearA = b.getFullYear();
+    let yearB = a.getFullYear();
 
     if(yearA > yearB) return 1;
     else if(yearA == yearB){
-        let monthA = a.getMonth();
-        let monthB = b.getMonth();
+        let monthA = b.getMonth();
+        let monthB = a.getMonth();
 
         if(monthA > monthB) return 1;
         else if (monthA == monthB){
-            let dateA = a.getDate();
-            let dataB = b.getDate();
+            let dateA = b.getDate();
+            let dataB = a.getDate();
 
             if(dateA > dataB) return 1;
             else if(dateA == dataB){
-                let hourA = a.getHours();
-                let hourB = b.getHours();
+                let hourA = b.getHours();
+                let hourB = a.getHours();
 
                 if(hourA > hourB) return 1;
                 else if(hourA == hourB){
-                    let minA = a.getMinutes();
-                    let minB = b.getMinutes();
+                    let minA = b.getMinutes();
+                    let minB = a.getMinutes();
 
                     if(minA > minB) return 1;
                     else if(minA == minB){
-                        let secA = a.getSeconds();
-                        let secB = b.getSeconds();
+                        let secA = b.getSeconds();
+                        let secB = a.getSeconds();
 
                         if(secA > secB) return 1;
                         else return -1;
@@ -171,7 +186,7 @@ function ShowComments(data, contents_id, time){
             contents_data = contents[timestamp][i];
         }
     }
-    console.log('comment');
+   
     output += `
             <div class="modal fade" id="commentModal${contents_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

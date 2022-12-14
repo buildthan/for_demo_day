@@ -2,40 +2,39 @@ let list = [];
 
 window.onload = function () {
   //feed 화면 새로고침될 때마다 팔로워 수, 팔로잉 수 변경되도록 함
-    const url_follower_num_update =
-      window.location.origin + "/api/follower/update_num";
+  const url_follower_num_update =
+    window.location.origin + "/api/follower/update_num";
 
-    fetch(url_follower_num_update, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    }).then((response) => response.json());
+  fetch(url_follower_num_update, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  }).then((response) => response.json());
 
-    const url_following_num_update =
-      window.location.origin + "/api/following/update_num";
+  const url_following_num_update =
+    window.location.origin + "/api/following/update_num";
 
-    fetch(url_following_num_update, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    }).then((response) => response.json());
-   //여기까지 팔로워 수, 팔로잉 수 업데이트 코드
+  fetch(url_following_num_update, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  }).then((response) => response.json());
+  //여기까지 팔로워 수, 팔로잉 수 업데이트 코드
 
   let contents_list = document.getElementById("contents");
   let contests_num = document.getElementById("contents_num");
 
   const url = window.location.origin + "/api/contents/show_contents";
 
- fetch(url) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+  fetch(url) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-
       //output = output + `</div></div>`;
       var output = ``;
 
@@ -66,8 +65,23 @@ window.onload = function () {
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="exampleModalLabel">${data[i].username}</h5>
                                 </div>
-                                <div class="modal-body">
-                                  <h5>${data[i].title}</h5>
+                                <div class="modal-body">`;
+
+
+                                if(data[i].image)
+                                {
+                                  output+=`
+                                  <div class="d-flex justify-content-center">
+                                  <div class="align-self-center">
+                                  <img src="../uploads/${data[i].image}" alt="#" width="400">
+                                  </div>
+                                  </div>
+                                  `;
+                                }
+                        
+
+
+                  output+=      `<h5>${data[i].title}</h5>
                                   <p>${data[i].contents}</p>
                                 </div>
                                 <div class="modal-footer">
@@ -135,96 +149,94 @@ window.onload = function () {
       contents_list.innerHTML = output;
     });
 
-    const url_2 = window.location.origin + '/api/profile/check';
+  const url_2 = window.location.origin + "/api/profile/check";
 
-    let user_name_1 = document.getElementById("user_name_1");
-    let user_name_2 = document.getElementById("user_name_2");
-    let user_name_3 = document.getElementById("user_name_3");
+  let user_name_1 = document.getElementById("user_name_1");
+  let user_name_2 = document.getElementById("user_name_2");
+  let user_name_3 = document.getElementById("user_name_3");
 
-    let user_name_1_hidden = document.getElementById("user_name_1_hidden");
-    let user_name_2_hidden = document.getElementById("user_name_2_hidden");
-    let user_name_3_hidden = document.getElementById("user_name_3_hidden");
+  let user_name_1_hidden = document.getElementById("user_name_1_hidden");
+  let user_name_2_hidden = document.getElementById("user_name_2_hidden");
+  let user_name_3_hidden = document.getElementById("user_name_3_hidden");
 
-    let user_name_1_label = document.getElementById("user_name1_label");
-    let user_name_2_label = document.getElementById("user_name2_label");
-    let user_name_3_label = document.getElementById("user_name3_label");
+  let user_name_1_label = document.getElementById("user_name1_label");
+  let user_name_2_label = document.getElementById("user_name2_label");
+  let user_name_3_label = document.getElementById("user_name3_label");
 
-
-
-    list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {return response.json();})
+  list = fetch(url_2) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+    .then((response) => {
+      return response.json();
+    })
     .then((data) => {
-        user_name_1.value = data[0].username1;
-        user_name_2.value = data[0].username2;
-        user_name_3.value = data[0].username3;
+      user_name_1.value = data[0].username1;
+      user_name_2.value = data[0].username2;
+      user_name_3.value = data[0].username3;
 
-        user_name_1_hidden.value = data[0].username1;
-        user_name_2_hidden.value = data[0].username2;
-        user_name_3_hidden.value = data[0].username3;
+      user_name_1_hidden.value = data[0].username1;
+      user_name_2_hidden.value = data[0].username2;
+      user_name_3_hidden.value = data[0].username3;
 
-        user_name_1_label.innerText = data[0].username1;
-        user_name_2_label.innerText = data[0].username2;
-        user_name_3_label.innerText = data[0].username3;
+      user_name_1_label.innerText = data[0].username1;
+      user_name_2_label.innerText = data[0].username2;
+      user_name_3_label.innerText = data[0].username3;
 
-        let user_intro_1 = document.getElementById("user_intro_1");
-        let user_intro_2 = document.getElementById("user_intro_2");
-        let user_intro_3 = document.getElementById("user_intro_3");
-    
-        const url_3 = window.location.origin + '/api/user_detail/introductions';
-    
+      let user_intro_1 = document.getElementById("user_intro_1");
+      let user_intro_2 = document.getElementById("user_intro_2");
+      let user_intro_3 = document.getElementById("user_intro_3");
+
+      const url_3 = window.location.origin + "/api/user_detail/introductions";
+
       const res = fetch(url_3, {
-          method: "POST",
-          headers: {
-              "Content-Type":"application/json",
-          },
-          body: JSON.stringify({
-              username: user_name_1.value
-          }),
-      }).then((response) => response.json())
-      .then(data => 
-          user_intro_1.value = data[0].introduction
-          );
-    
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user_name_1.value,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => (user_intro_1.value = data[0].introduction));
+
       const res2 = fetch(url_3, {
-          method: "POST",
-          headers: {
-              "Content-Type":"application/json",
-          },
-          body: JSON.stringify({
-              username: user_name_2.value
-          }),
-      }).then((response) => response.json())
-      .then(data => 
-          user_intro_2.value = data[0].introduction
-          );
-    
-    
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user_name_2.value,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => (user_intro_2.value = data[0].introduction));
+
       const res3 = fetch(url_3, {
-          method: "POST",
-          headers: {
-              "Content-Type":"application/json",
-          },
-          body: JSON.stringify({
-              username: user_name_3.value
-          }),
-      }).then((response) => response.json())
-      .then(data => 
-          user_intro_3.value = data[0].introduction
-          );
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user_name_3.value,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => (user_intro_3.value = data[0].introduction));
     });
 
-    const url_4 = window.location.origin + '/api/user_detail/check_follow';
+  const url_4 = window.location.origin + "/api/user_detail/check_follow";
 
-    let follower_num = document.getElementById("follower_num");
-    let following_num = document.getElementById("following_num");
-    let current_introduction = document.getElementById("instruction");
+  let follower_num = document.getElementById("follower_num");
+  let following_num = document.getElementById("following_num");
+  let current_introduction = document.getElementById("instruction");
 
-    list = fetch(url_4) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
-    .then((response) => {return response.json();})
+  list = fetch(url_4) //mysql에 담긴 데이터를 json형식으로 받아와서 조회하고 저장.
+    .then((response) => {
+      return response.json();
+    })
     .then((data) => {
-        follower_num.innerText =data[0].follower_num;
-        following_num.innerText =data[0].following_num;
-        current_introduction.innerText = data[0].introduction;
+      follower_num.innerText = data[0].follower_num;
+      following_num.innerText = data[0].following_num;
+      current_introduction.innerText = data[0].introduction;
     });
   // 팔로워 클릭했을 때 팔로워 읽어오는 코드
   const url_follower = window.location.origin + "/api/follower";
@@ -238,6 +250,7 @@ window.onload = function () {
       var output = ``;
 
       var i = 0;
+
       while (i < data.length) {
         output =
           output +
@@ -273,7 +286,7 @@ window.onload = function () {
           ` <div class="card" style="margin-bottom: 5px">
                 <div class="card-body">
                 ${data[i].following_id}
-                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">팔로우</button>
+                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">삭제</button>
                 
                 </div>
               </div>
@@ -286,7 +299,7 @@ window.onload = function () {
     });
 };
 
-//팔로워 삭제
+//팔로워 삭제기능
 function follower_delete(id) {
   const url_follower = window.location.origin + "/api/follower";
 
@@ -295,7 +308,6 @@ function follower_delete(id) {
       return response.json();
     })
     .then((data) => {
-      // alert(data[id].follower_id);
       const url = window.location.origin + "/api/follower/delete";
       const res1 = fetch(url, {
         method: "DELETE",
@@ -303,26 +315,8 @@ function follower_delete(id) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          follower_id: data[id].follower_id,
-        }),
-      }).then((response) => response.json());
-    });
-
-  const url_following = window.location.origin + "/api/following";
-
-  list = fetch(url_following)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const url = window.location.origin + "/api/following/delete_2";
-      const res1 = fetch(url, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: data[id].following_id,
+          following_id: data[id].follower_id,
+          following_username: data[id].follower_username,
         }),
       }).then((response) => response.json());
     });
@@ -345,25 +339,7 @@ function following_delete(id) {
         },
         body: JSON.stringify({
           following_id: data[id].following_id,
-        }),
-      }).then((response) => response.json());
-    });
-
-  const url_follower = window.location.origin + "/api/follower";
-
-  list = fetch(url_follower)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const url2 = window.location.origin + "/api/follower/delete_reverse";
-      const res2 = fetch(url2, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          follower_id: data[id].follower_id,
+          following_username: data[id].following_username,
         }),
       }).then((response) => response.json());
     });
@@ -426,4 +402,72 @@ function Contents_update(id) {
         location.reload();
       };
     });
+}
+
+function searchF() {
+  let input_user = document.getElementById("input_user").value;
+  const url_search = window.location.origin + "/api/user_detail/search_user";
+  let search_view = document.getElementById("div_users");
+
+  const res = fetch(url_search, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      search_user: input_user,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      var output = ``;
+
+      var i = 0;
+
+      while (i < data.length) {
+        output =
+          output +
+          ` <div class="card" style="margin-bottom: 5px">
+              <div class="card-body" id="${data[i].id}_${data[i].username}" onclick='move(this.id)'>${data[i].username}
+                
+              </div>
+            </div>
+            `;
+
+        i = i + 1;
+      }
+
+      search_view.innerHTML = output;
+    });
+}
+
+function move(data) {
+  const id = data.split("_")[0];
+  const username = data.split("_")[1];
+
+  sessionStorage.setItem("id", id);
+  sessionStorage.setItem("username", username);
+
+  window.location.href = "/feed2";
+}
+
+function btn_follow() {
+  // 팔로우 클릭
+  const other_id = "ex33";
+  const other_username = "username33";
+
+  const url_following = window.location.origin + "/api/following/insert";
+
+  const res2 = fetch(url_following, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      following_id: other_id,
+      following_username: other_username,
+    }),
+  }).then((response) => response.json());
+
+  location.reload();
 }

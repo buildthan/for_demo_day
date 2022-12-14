@@ -12,6 +12,7 @@ var indexRouter = require("./routes/index");
 var signupRouter = require("./routes/signup");
 var switchRouter = require("./routes/switch");
 var feedRouter = require("./routes/feed");
+var feed2Router = require("./routes/feed2");
 var homeRouter = require("./routes/home");
 
 // DB
@@ -37,7 +38,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public/images", express.static("images")); //이미지 로딩에 필요함
-app.use("/public/fonts", express.static("fonts")); //폰트 로딩에 필요함
+app.use("/public/fonts", express.static("fonts"));//폰트 로딩에 필요함
+app.use("/public/uploads", express.static("uploads")); 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -68,6 +70,7 @@ app.use("/signup", signupRouter);
 app.use("/switch", switchRouter);
 app.use("/feed", feedRouter);
 app.use("/home", homeRouter);
+app.use("/feed2", feed2Router);
 
 // DB
 app.use("/api/user", userRouter);
@@ -79,7 +82,6 @@ app.use("/api/user_detail", user_detailRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/follower", followerRouter);
 app.use("/api/following", followingRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

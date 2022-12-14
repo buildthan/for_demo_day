@@ -4,7 +4,7 @@ const fs = require("fs");
 const request = require('request');
 const multer = require("multer");
 
-var upload = multer({dest: 'uploads/'});
+var upload = multer({dest: 'public/uploads/'});
 
 /* GET home page. */
 router.get("/", function (req, res, next) {

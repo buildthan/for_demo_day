@@ -36,6 +36,7 @@
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
+    <script src="/javascripts/searchuser.js"></script>
 
     <!-- 왼쪽 사이드바 -->
     <nav style="z-index: 2" id="nav_left">
@@ -122,6 +123,51 @@
       </nav>
     </header>
 
+          <!-- 검색창 -->
+          <div
+          class="modal fade"
+          id="Modal_search"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="ModalLabelSearch"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div
+                  class="modal-title"
+                  id="ModalLabelSearch"
+                  style="margin: 0 auto"
+                >
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="사용자 검색"
+                      aria-label="Search"
+                      aria-describedby="button-addon2"
+                      id="input_user"
+                      style="width: 350px"
+                    />
+                    <button
+                      class="btn btn-outline-success"
+                      type="submit"
+                      id="btn_search"
+                      onclick="searchF()"
+                    >
+                      검색
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div id="div_users"></div>
+              </div>
+            </div>
+          </div>        
+        </div>
+
     <!-- 게시글 표시될 곳-->
     <main style="margin-left: 70px; padding-top: 80px">
       <!-- 오른쪽 멀티 프로필 상자 -->
@@ -137,7 +183,7 @@
 
             <form action="./home/profile2_change" method="post">
             <div
-              id="profile_mini"
+              id="profile_mini" class="p-1"
             >
             <button type="submit" class="btn btn-dark">profile2</button>
             </div>
@@ -145,7 +191,7 @@
 
           <form action="./home/profile3_change" method="post">
             <div
-              id="profile_mini"
+              id="profile_mini" class="p-2"
             >
             <button type="submit" class="btn btn-dark">profile3</button>
             </div>
@@ -154,9 +200,7 @@
         </aside>
       </div>
 
-      <div id="contents">
-       
-      </div>
+      <div id="contents"></div>
 
       <!-- 게시글 생성 버튼 클릭 -->
       <form action="./home/write" method="post" enctype="multipart/form-data" >
@@ -218,51 +262,7 @@
           </div>
         </div>
       </div>
-
-      <!-- 검색창 -->
-      <div
-        class="modal fade"
-        id="Modal_search"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="ModalLabelSearch"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div
-                class="modal-title"
-                id="ModalLabelSearch"
-                style="margin: 0 auto"
-              >
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="사용자 검색"
-                    aria-label="Search"
-                    aria-describedby="button-addon2"
-                    id="input_user"
-                    style="width: 350px"
-                  />
-                  <button
-                    class="btn btn-outline-success"
-                    type="submit"
-                    id="button-addon2"
-                    onclick="searchF()"
-                  >
-                    검색
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="modal-body">
-              <div id="div_users"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </main>
 
   </form>

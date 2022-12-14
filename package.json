@@ -1,0 +1,37 @@
+{
+  "name": "team_9",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-mysql-session": "^2.1.8",
+    "express-session": "^1.17.3",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20",
+    "request": "^2.88.2"
+  },
+  "description": "사용자 프리셋 기능을 가진 SNS",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kw-ic-web/teamproject-team9.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kw-ic-web/teamproject-team9/issues"
+  },
+  "homepage": "https://github.com/kw-ic-web/teamproject-team9#readme"
+}

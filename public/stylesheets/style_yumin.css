@@ -1,0 +1,100 @@
+/* 로고 관련 (logo는 글씨,  logo_img는 이미지 로고)*/
+#logo {
+  height: 60px;
+}
+
+#logo_img {
+  height: 50px;
+  width: 50px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+/* 왼쪽 사이드바 관련 (menu_img는 사이드바 이미지 관련)*/
+#nav_left {
+  width: 60px;
+  background-color: white;
+  border-right: 2px solid #989898;
+  position: fixed;
+  height: 100%;
+}
+#menu_img {
+  height: 30px;
+  width: 30px;
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* 게시글 하나하나 관련 */
+/* 게시글 박스 */
+.post_box {
+  /* border: 2px solid #666666; */
+  width: 70%;
+  float: left;
+  margin-bottom: 15px;
+  cursor: pointer; /*게시글 칸에 마우스 대면 커서 모양 바뀌도록 함 (사용할 때 편하게 하기 위해)*/
+}
+/* 프로필 이미지 표시되는 원 */
+#profile_circle {
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  border-radius: 50%;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 15px;
+}
+/* 사용자 이름 표시 */
+#post_username {
+  margin-top: 15px;
+}
+/* 게시글 내용 보기 버튼 */
+#view_more {
+  height: 25px;
+  width: 25px;
+  float: right;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+/* 화면 오른쪽에 표시되는 멀티 프로필 상자 */
+aside {
+  width: 26%;
+  height: 350px;
+  background: white;
+  float: right;
+  text-align: center;
+  line-height: 450px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  margin-right: 15px;
+}
+/* 메인(사용 중인) 프로필 */
+#profile_main {
+  width: 165px;
+  height: 165px;
+  border: 2px solid black;
+  border-radius: 50%;
+  float: center;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+/* 그 아래 멀티 프로필 선택 관련*/
+#profile_mini {
+  cursor: pointer;
+  height: 20px;
+  width: auto;
+  margin-bottom: 15px;
+}
+@font-face {
+  font-family: "nanum_round";
+  src: url("/fonts/NanumSquareRoundR.ttf");
+}
+
+#font_basic {
+  font-family: "nanum_round";
+}

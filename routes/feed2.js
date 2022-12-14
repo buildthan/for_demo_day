@@ -101,23 +101,6 @@ router.get("/", function (req, res) {
             <img src="../images/logo/logo1.png" style="height: 20px" />
           </a>
 
-          <!-- 검색창 -->
-          <form class="d-flex" role="search">
-            <button
-              type="button"
-              class="btn btn-light"
-              data-toggle="modal"
-              data-target="#Modal_search"
-              style="
-                width: 200px;
-                text-align: left;
-                border: 1px solid #b9b9b9;
-                color: #898989;
-              "
-            >
-              사용자 검색
-            </button>
-          </form>
         </div>
       </nav>
     </header>

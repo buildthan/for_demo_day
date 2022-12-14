@@ -51,7 +51,7 @@ async function setFollowing(data){
         for(let j = 0; j < contents[time[i]].length; j++){
             
             output += `<div class="card post_box" id="${contents[time[i]][j].contents_id}_${contents[time[i]][j].timestamp}"
-            data-toggle="modal" data-target="#contentModal${contents[time[i]][j].contents_id}" onclick="setComments(this.id)">
+            data-toggle="modal" data-target="#contentModal${contents[time[i]][j].contents_id}">
                             <div class="card-header">
                                 <div id="profile_circle"></div>
                                 <h5 id="post_username">${contents[time[i]][j].username}</h5>
@@ -79,19 +79,19 @@ async function setFollowing(data){
                                   `;
                                 }
                         
-
-
                   output+=      `
                                 <h5>${contents[time[i]][j].title}</h5>
                                 <p>${contents[time[i]][j].contents}</p>
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal${contents[time[i]][j].contents_id}" data-dismiss="modal">댓글</button>
-                                <button type="button" class="btn btn-secondary" onclick='deleteComment(${contents[time[i]][j].contents_id})' data-dismiss="modal"> 닫기 </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> 닫기 </button>
                                 </div>
                             </div>
                             </div>
                         </div>`;
+
+            setComments(`${contents[time[i]][j].contents_id}_${contents[time[i]][j].timestamp}`);
         }
     }
    
@@ -140,6 +140,8 @@ function sortFunction(a, b){
     }
     else return -1;
 }
+
+
 function SaveContents(data){
     
     for(let i = 0; i < data.length ; i++){
@@ -160,7 +162,6 @@ function setComments(data){
     const url = window.location.origin + '/api/comments/getData';
     const contents_id = data.split('_')[0];
     const timestamp = data.split('_')[1];
-
     
     fetch(url, {
         method: "POST",
@@ -194,7 +195,7 @@ function ShowComments(data, contents_id, time){
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">${contents_data.username} : ${contents_data.title}</h5>
                     </div>
-                    <div class="modal-body" id='main-body'>`;
+                    <div class="modal-body" id='main-body${contents_id}'>`;
     
     if( data.length != 0){
         for(let i = 0; i < data.length ; i ++){
@@ -208,7 +209,7 @@ function ShowComments(data, contents_id, time){
     output += `</div>
                     <div class="modal-footer">
                     
-                    <input type="text" class="form-control" id="new_comments" placeholder='여기에 입력해주세요'/>
+                    <input type="text" class="form-control" id="new_comments${contents_id}" placeholder='여기에 입력해주세요'/>
                     
                     <button type="button" class="btn btn-dark" onclick="WriteComments('${contents_id}', '${time}')"
                     >등록</button>
@@ -216,7 +217,7 @@ function ShowComments(data, contents_id, time){
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contentModal${contents_id}" 
                     data-dismiss="modal"> 뒤로 </button>
             
-                    <button type="button" class="btn btn-secondary" onclick='deleteComment(${contents_id})' data-dismiss="modal"> 
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> 
                     닫기 </button>
                        
                 </div>
@@ -226,16 +227,16 @@ function ShowComments(data, contents_id, time){
     contents_block.innerHTML = output;
 }
 
-function deleteComment(num){
+/*function deleteComment(num){
     const commentModalID = 'commentModal' + num;
     const div = document.getElementById(commentModalID);
 
     div.remove();
-}
+}*/
 
 function WriteComments(contents_id, timestamp){
    
-    let comments = document.getElementById('new_comments');
+    let comments = document.getElementById('new_comments' + contents_id);
     const comments_value = comments.value;
 
     const url = window.location.origin + '/api/comments/setData';
@@ -255,17 +256,17 @@ function WriteComments(contents_id, timestamp){
             contents: comments_value
         }),
     }).then((response) => response.json())
-    .then(data => newComments(data));
+    .then(data => newComments(data, contents_id));
 
     comments.value = "";
 }
 
-function newComments(data){
+function newComments(data, contents_id){
     const id = data[1];
     const username = data[2];
     const contents = data[3];
 
-    let contents_block = document.getElementById('main-body');
+    let contents_block = document.getElementById('main-body' + contents_id);
 
     if(contents_block.innerText == '댓글이 존재하지 않습니다.'){
         const div = document.getElementById('none');
@@ -273,6 +274,5 @@ function newComments(data){
         div.remove();
     }
    
-    $('#main-body').prepend(`<p><b>${username}: </b>${contents} </p>`);
+    $('#main-body'+ contents_id).prepend(`<p><b>${username}: </b>${contents} </p>`);
 }
-

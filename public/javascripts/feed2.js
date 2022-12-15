@@ -258,7 +258,7 @@ window.onload = function () {
           ` <div class="card" style="margin-bottom: 5px">
                 <div class="card-body">
                 ${data[i].following_id}
-                  <button type="button" class="btn btn-outline-dark" id="${i}" style="float: right" onclick="following_delete(this.id)">삭제</button>
+                  
 
                 
                 </div>
